@@ -168,3 +168,30 @@
 ;;;    https://www.4clojure.com/problem/145
 ;;;
 (map (comp (fn [n] (- n (int \A))) inc int first) (re-seq #"\S+" "At Each Inconceivable Moment Question Unanticipated Yearnings ] albert einstein"))
+
+;;;
+;;;    Day 4 210301
+;;;
+;;;    https://www.4clojure.com/problem/20
+;;;
+(comp second reverse)
+
+;;;
+;;;    https://www.4clojure.com/problem/24
+;;;
+(partial apply +)
+
+;;;
+;;;    https://www.4clojure.com/problem/25
+;;;
+(partial filter odd?)
+
+;;;
+;;;    https://www.4clojure.com/problem/27
+;;;
+(fn [s] (= (seq s) (reverse s)))
+
+;;;
+;;;    https://www.4clojure.com/problem/32
+;;;
+(partial mapcat #(vector % %))
