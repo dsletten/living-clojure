@@ -195,3 +195,53 @@
 ;;;    https://www.4clojure.com/problem/32
 ;;;
 (partial mapcat #(vector % %))
+
+;;;
+;;;    Day 5 210302
+;;;
+;;;    https://www.4clojure.com/problem/30
+;;;
+;reduce (fn [result elt] (if (= (last result) elt) result (conj result elt))) []
+(reduce (fn [result elt] (if (= (last result) elt) result (conj result elt))) [] '(1 1 2 3 3 3 3 4 4))
+
+;;;
+;;;    https://www.4clojure.com/problem/31   ??????????????????????????????????????????????
+;;;
+(fn [in]
+  ((fn [result]
+     (rest (conj (:result result) (:current result))))
+   (reduce (fn [{:keys [result current]} elt]
+             (if (= (last current) elt)
+               {:result result :current (conj current elt)}
+               {:result (conj result current) :current [elt]}))
+           {:result [] :current []}
+           in)))
+
+(partial partition-by identity)
+group-by ????
+
+
+;;;    Simplified...
+(defn partition-by [f coll]
+  (lazy-seq
+   (when-let [s (seq coll)]
+     (let [fst (first s)
+           fv (f fst)
+           run (cons fst (take-while #(= fv (f %)) (next s)))]
+       (cons run (partition-by f (lazy-seq (drop (count run) s)))) )))) ; Not tail-recursive!
+
+
+;;;
+;;;    https://www.4clojure.com/problem/41
+;;;
+(fn [s n] (mapcat #(take (dec n) %) (partition-all n s)))
+
+;;;
+;;;    https://www.4clojure.com/problem/45
+;;;
+'(1 4 7 10 13)
+
+;;;
+;;;    https://www.4clojure.com/problem/33
+;;;
+(fn [s n] (mapcat #(repeat n %) s))
