@@ -98,3 +98,30 @@
 ;;;    https://www.4clojure.com/problem/50
 ;;;
 (fn [s] (vals (group-by class s)))
+
+;;;
+;;;    Day 4 210315
+;;;
+;;;    https://www.4clojure.com/problem/67
+
+(defn prime? [n]
+  (cond (== n 1) false
+        (== n 2) true
+        (even? n) false
+        :else (let [limit (int (Math/sqrt n))]
+                (loop [divisor 3]
+                  (cond (> divisor limit) true
+                        (zero? (mod n divisor)) false
+                        :else (recur (+ divisor 2)))) )))
+
+(fn [m] (take m (remove false? (map (fn [n]
+                                      (cond (== n 1) false
+                                            (== n 2) n
+                                            (even? n) false
+                                            :else (let [limit (int (Math/sqrt n))]
+                                                    (loop [divisor 3]
+                                                      (cond (> divisor limit) n
+                                                            (zero? (mod n divisor)) false
+                                                            :else (recur (+ divisor 2)))) )))
+                                    (iterate inc 2)))) )
+
