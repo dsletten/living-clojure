@@ -103,7 +103,7 @@
 ;;;    Day 4 210315
 ;;;
 ;;;    https://www.4clojure.com/problem/67
-
+;;;    
 (defn prime? [n]
   (cond (== n 1) false
         (== n 2) true
@@ -125,3 +125,14 @@
                                                             :else (recur (+ divisor 2)))) )))
                                     (iterate inc 2)))) )
 
+;;;
+;;;    Day 5 210316
+;;;
+;;;    https://www.4clojure.com/problem/77
+;;;    Can't use update from Clojure 1.7?!?!
+;;;    
+((fn [words] (set (map set (filter #(> (count %) 1) (vals (reduce (fn [anagrams word] (let [sorted (sort word)] (if (anagrams sorted) (update anagrams sorted conj word) (assoc anagrams sorted [word])))) {} words)))))) ["meat" "mat" "team" "mate" "eat"])
+((fn [words] (set (map set (filter #(> (count %) 1) (vals (reduce (fn [anagrams word] (let [sorted (sort word)] (if (anagrams sorted) (update anagrams sorted conj word) (assoc anagrams sorted [word])))) {} words)))))) ["veer" "lake" "item" "kale" "mite" "ever"])
+
+
+(fn [words] (set (map set (filter #(> (count %) 1) (vals (reduce (fn [anagrams word] (let [sorted (sort word)] (if (anagrams sorted) (assoc anagrams sorted (conj (anagrams sorted) word)) (assoc anagrams sorted [word])))) {} words))))))
