@@ -4,6 +4,12 @@
         [clojure.pprint :only (cl-format)]))
 
 (defrecord State [left boat right])
+
+;;;
+;;;    This is merely a convenience function to keep the tests happy.
+;;;    States are `State` records, which are more convenient to work with.
+;;;    However, the test suite expects these vectors of vectors to represent actions.
+;;;    
 (defn convert-state [state]
   [(vec (:left state)) (vec (cons :boat (vec (:boat state)))) (vec (:right state))])
 
@@ -68,6 +74,9 @@
     (State. (disj (:left state) item) (conj (:boat state) item) (:right state))
     (State. (:left state) (conj (:boat state) item) (disj (:right state) item))))
 
+;;;
+;;;    TODO: For completeness, should check for legal-boat? here when returning item...
+;;;    
 (defn successful-crossing [boarded-state unloaded-state & {:keys [return-item]}]
   (if return-item
     [boarded-state unloaded-state (board-boat (load-boat unloaded-state return-item)) (unload-boat (exit-boat (board-boat (load-boat unloaded-state return-item)) :left))]
