@@ -3,6 +3,19 @@
         clojure.set
         [clojure.pprint :only (cl-format)]))
 
+;;;
+;;;    Some interesting solutions (A*, etc...)
+;;;
+;;; https://github.com/davidpham87/wonderland-clojure-katas/tree/my-training/fox-goose-bag-of-corn
+;;; https://github.com/Rigo85/wonderland-clojure-katas/tree/master/fox-goose-bag-of-corn
+;;; https://github.com/saicheong/wonderland-clojure-katas/tree/master/fox-goose-bag-of-corn
+;;;  [astar-search "0.2"]
+;;;  [astar.core :refer [route]]))
+;;;  (route graph dist (get-h end) start end))
+;;; https://github.com/raydel95/wonderland-clojure-katas/tree/master/fox-goose-bag-of-corn
+;;; https://github.com/manuel-colmenero/wonderland-clojure-katas/tree/master/fox-goose-bag-of-corn
+;;; https://github.com/kuchichan/wonderland-clojure-katas/tree/master/fox-goose-bag-of-corn
+
 (defrecord State [left boat right])
 
 ;;;
